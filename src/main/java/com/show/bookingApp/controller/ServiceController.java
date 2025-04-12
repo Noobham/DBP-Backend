@@ -21,14 +21,19 @@ public class ServiceController {
         return serviceLogic.getAllCategory();
     }
 
-    @GetMapping("/service/category/{category}")
-    public List<String> getAllCategoryByNames(@PathVariable String category){
+    @GetMapping("/service/{category}")
+    public List<ServiceEntity> getAllCategoryByNames(@PathVariable String category){
         return serviceLogic.getAllNamesByCategory(category);
     }
 
-    @PostMapping("/service")
+    @PostMapping("/create/service")
     public String saveService(@RequestBody ServiceEntity serviceEntity){
         serviceLogic.saveService(serviceEntity);
         return "success";
+    }
+
+    @GetMapping("/service/product/{id}")
+    public ServiceEntity getServiceById (@PathVariable Integer id){
+        return serviceLogic.getServiceById(id);
     }
 }
