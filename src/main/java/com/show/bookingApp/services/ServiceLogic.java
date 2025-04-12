@@ -26,20 +26,25 @@ public class ServiceLogic {
         return categoryList;
     }
 
-    public List<String> getAllNamesByCategory(String category){
+    public List<ServiceEntity> getAllNamesByCategory(String category){
         Iterator<ServiceEntity> serviceEntityIterator = serviceRepo.findAll().iterator();
-        Set<String> setList = new HashSet<>();
+        List<ServiceEntity> setList = new ArrayList<>();
 
         while(serviceEntityIterator.hasNext()){
-            if(serviceEntityIterator.next().getCategory().equals(category)){
-            setList.add(serviceEntityIterator.next().getName());
+            ServiceEntity entity = serviceEntityIterator.next(); // Call next() only once
+            if (entity.getCategory().equals(category) || category.equals("all")) {
+                setList.add(entity); // Use the variable, not calling next() again
             }
         }
-        List<String> categoryList = setList.stream().toList();
-        return categoryList;
+//        List<ServiceEntity> categoryList = setList.stream().toList();
+        return setList;
     }
 
     public void saveService(ServiceEntity serviceEntity){
         serviceRepo.save(serviceEntity);
+    }
+
+    public ServiceEntity getServiceById(Integer id){
+        return serviceRepo.findById(id).get();
     }
 }
