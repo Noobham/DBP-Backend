@@ -15,9 +15,4 @@ public class BookingAppApplication {
 		SpringApplication.run(BookingAppApplication.class, args);
 	}
 
-	@GetMapping("/hello")
-	public String printHello(){
-		return "hello";
-	}
-
 }
